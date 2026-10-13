@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python in 8 Weeks — online course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Golos+Text:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFCFF; --grid:#DCE4F5; --ink:#1B2A4E; --blue:#2F5BD3; --red:#D8343B;
+  --hl:#FFF3A3; --muted:#56627F;
+  --serif:"Literata", Georgia, serif; --sans:"Golos Text", system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font:400 18px/1.7 var(--serif)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.notebook{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0;font-family:var(--sans)}
+.logo{font:700 20px var(--serif);text-decoration:none}
+nav{display:flex;gap:26px;font-weight:500;align-items:center}
+nav a{text-decoration:none}
+.btn{display:inline-block;font:700 16px var(--sans);background:var(--blue);color:#fff;padding:15px 26px;border-radius:8px;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:var(--ink)}
+
+.hero{padding:40px 0 96px;position:relative}
+.hero::before{content:"";position:absolute;top:0;bottom:0;left:max(24px,calc(50% - 526px));border-left:2px solid var(--red);opacity:.6}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.hero-text{padding-left:28px}
+.hero h1{font:700 clamp(40px,5.6vw,72px)/1.06 var(--serif);letter-spacing:-.015em}
+.hero p{font-size:20px;margin:22px 0 30px;max-width:32ch;color:var(--muted)}
+.meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px;font:500 15px var(--sans)}
+.meta strong{display:block;font:700 22px var(--serif);color:var(--ink)}
+
+/* code editor — memorable element */
+.editor{background:var(--ink);color:#E6ECFF;border-radius:12px;font:15px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden;box-shadow:0 0 0 8px #fff,0 0 0 9px var(--grid)}
+.ed-top{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:#14203D;font:500 13px var(--sans);color:#9BA8CC}
+.run{background:#4CC38A;color:#0E2A1C;border:0;border-radius:6px;padding:6px 14px;font:700 13px var(--sans);cursor:pointer}
+pre{padding:18px 20px;white-space:pre-wrap}
+.k{color:#FF9AA2}.s{color:#FFE28A}.f{color:#8FC7FF}.c{color:#7B88AA}
+.out{border-top:1px solid #2B3B66;padding:14px 20px;min-height:112px;color:#B7F5D2}
+.out .ph{color:#7B88AA}
+.cursor{display:inline-block;width:8px;height:16px;background:#B7F5D2;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+section{padding:96px 0}
+h2{font:700 clamp(32px,4vw,48px)/1.15 var(--serif);margin-bottom:16px;letter-spacing:-.01em}
+.sub{color:var(--muted);max-width:56ch;margin-bottom:44px}
+
+.for{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.for div{font-family:var(--sans);font-size:16px}
+.for h3{font:600 22px var(--serif);margin-bottom:8px}
+.for mark{background:var(--hl);padding:0 3px}
+
+/* syllabus — real sequence */
+.weeks{border-top:2px solid var(--ink)}
+.week{border-bottom:1px solid var(--grid)}
+.week button{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:110px 1fr auto;gap:16px;align-items:baseline;padding:22px 0;cursor:pointer}
+.week button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.wk{font:500 15px var(--sans);color:var(--red)}
+.week h3{font:600 22px var(--serif)}
+.pm{font:400 26px/1 var(--sans);color:var(--blue);transition:transform .2s}
+.week[data-open="true"] .pm{transform:rotate(45deg)}
+.week .body{display:none;padding:0 0 24px 126px;font-family:var(--sans);font-size:16px;color:var(--muted)}
+.week[data-open="true"] .body{display:block}
+.week .body ul{margin:8px 0 0 18px}
+.project{display:inline-block;margin-top:10px;background:var(--hl);color:var(--ink);padding:2px 8px;font-weight:500}
+
+.author{background:var(--ink);color:#E6ECFF}
+.author .wrap{display:grid;grid-template-columns:260px 1fr;gap:56px;align-items:center}
+.avatar{aspect-ratio:1;border-radius:50%;background:var(--blue);display:grid;place-items:center;font:700 96px var(--serif);color:#fff;border:8px solid #2B3B66}
+.author blockquote{font:400 26px/1.45 var(--serif);max-width:36ch}
+.author cite{display:block;margin-top:18px;font:500 16px var(--sans);font-style:normal;color:#9BA8CC}
+
+.enroll .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.price-card{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:32px;font-family:var(--sans)}
+.price-card .old{text-decoration:line-through;color:var(--muted)}
+.price-card .now{font:700 52px var(--serif);display:block;margin:4px 0}
+.price-card ul{margin:18px 0 24px 18px;display:grid;gap:6px}
+.price-card form{display:grid;gap:12px}
+.price-card label{font-size:14px;font-weight:500;display:grid;gap:6px}
+.price-card input{font:inherit;padding:12px;border:1.5px solid var(--grid);border-radius:8px}
+.price-card input:focus{border-color:var(--blue);outline:none}
+.done{background:#E7F7EE;border-radius:8px;padding:14px;font-weight:500}
+.faq p{font-family:var(--sans);font-size:16px;color:var(--muted);margin-bottom:22px}
+.faq h3{font:600 20px var(--serif);margin-bottom:4px}
+
+footer{padding:32px 0;font:400 14px var(--sans);color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--grid)}
+
+@media (max-width:880px){
+  nav a:not(.btn){display:none}
+  .hero .wrap,.enroll .wrap,.author .wrap{grid-template-columns:1fr}
+  .hero::before{display:none}
+  .hero-text{padding-left:0}
+  .for{grid-template-columns:1fr}
+  .week button{grid-template-columns:1fr auto}
+  .wk{grid-column:1/-1}
+  .week .body{padding-left:0}
+  .avatar{max-width:180px}
+  section{padding:72px 0}
+}
+@media (prefers-reduced-motion:reduce){.cursor{animation:none}.pm{transition:none}}
+</style>
+</head>
+<body>
+<div class="notebook">
+  <div class="wrap">
+    <header>
+      <a class="logo" href="#">Code from Scratch</a>
+      <nav aria-label="Main menu"><a href="#program">Syllabus</a><a href="#author">Instructor</a><a class="btn" href="#enroll">Enroll</a></nav>
+    </header>
+  </div>
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <h1>Python in 8 weeks, even if you have never written code</h1>
+        <p>An online course with reviewed homework. By the end you will have 4 working projects on GitHub.</p>
+        <a class="btn" href="#enroll">Join the November 2 cohort</a>
+        <div class="meta">
+          <span><strong>8 weeks</strong>5–6 hours each</span>
+          <span><strong>32 lessons</strong>video and practice</span>
+          <span><strong>20 students</strong>max per cohort</span>
+        </div>
+      </div>
+      <div class="editor" aria-label="Code sample from lesson one">
+        <div class="ed-top"><span>lesson_1.py</span><button class="run" id="run" type="button">Run</button></div>
+<pre><span class="c"># Your first program in the course</span>
+<span class="f">name</span> = <span class="f">input</span>(<span class="s">"What's your name? "</span>)
+<span class="k">for</span> week <span class="k">in</span> <span class="f">range</span>(<span class="s">1</span>, <span class="s">9</span>):
+    <span class="f">print</span>(<span class="s">f"Week {week}: {name} is coding"</span>)
+<span class="f">print</span>(<span class="s">"Done. You're a programmer."</span>)</pre>
+        <div class="out" id="out" aria-live="polite"><span class="ph">Press “Run” to see the output</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Who this course is for</h2>
+    <p class="sub">No math background needed. All you need is a computer and 5 hours a week.</p>
+    <div class="for">
+      <div><h3>Career changers</h3>Learn the foundations you need to apply for a <mark>junior developer internship</mark> or move into analytics.</div>
+      <div><h3>People tired of busywork</h3>Write scripts that rename files, clean up spreadsheets and send reports for you.</div>
+      <div><h3>Students</h3>Get comfortable with programming basics before your classes require them.</div>
+    </div>
+  </div>
+</section>
+
+<section id="program" class="notebook" style="background-color:var(--paper)">
+  <div class="wrap">
+    <h2>Week-by-week syllabus</h2>
+    <p class="sub">Every week ends with a hands-on assignment reviewed by a mentor.</p>
+    <div class="weeks" id="weeks"></div>
+  </div>
+</section>
+
+<section class="author" id="author">
+  <div class="wrap">
+    <div class="avatar" aria-hidden="true">I</div>
+    <div>
+      <blockquote>“I switched from accounting to software at 29. This is the course I wish I’d had back then: no filler theory, and real people reviewing your code.”</blockquote>
+      <cite>Ihor Melnyk, course author, 9 years of Python development</cite>
+    </div>
+  </div>
+</section>
+
+<section class="enroll" id="enroll">
+  <div class="wrap">
+    <div class="price-card">
+      <span class="old">$390</span>
+      <span class="now">$290</span>
+      <span style="color:var(--muted)">early-bird price until October 25, installments available</span>
+      <ul><li>32 lessons plus recordings of every live session</li><li>8 reviewed assignments</li><li>Cohort chat with your mentor</li><li>Certificate of completion</li></ul>
+      <form id="form">
+        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Email<input name="email" type="email" required autocomplete="email"></label>
+        <button class="btn" type="submit">Enroll in the course</button>
+      </form>
+    </div>
+    <div class="faq">
+      <h2>Questions</h2>
+      <h3>What if I fall behind?</h3><p>You keep access to the lessons for a year, and you can join the next cohort for free.</p>
+      <h3>What computer do I need?</h3><p>Any Windows, macOS or Linux laptop from the last 7 years.</p>
+      <h3>Can I get a refund?</h3><p>Yes. Within the first 14 days you get a full refund, no questions asked.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer><span>© 2026 Code from Scratch</span><span>Portfolio project</span></footer></div>
+
+<script>
+const WEEKS=[
+  ["Variables and data types",["Installing Python and an editor","Numbers, strings, lists","Input and output"],"Tip calculator"],
+  ["Conditions and loops",["if, elif, else","for and while","Debugging"],"Guess-the-number game"],
+  ["Functions",["Arguments and return values","Scope","Documenting code"],"Password generator"],
+  ["Working with files",["Reading and writing","CSV and JSON","Handling exceptions"],"Folder file sorter"],
+  ["Libraries",["pip and virtual environments","requests: talking to websites","Using a weather API"],"Telegram weather bot"],
+  ["Data and tables",["pandas basics","Filtering and grouping","Charts with matplotlib"],"Personal spending analysis"],
+  ["Git and GitHub",["Commits and branches","Pull requests","Writing a README"],"Publishing your projects"],
+  ["Final project",["Choosing an idea with your mentor","Code review","Project demo"],"Your own project"]
+];
+const wEl=document.getElementById('weeks');
+wEl.innerHTML=WEEKS.map(([t,l,p],i)=>`<div class="week" data-open="${i===0}">
+  <button aria-expanded="${i===0}" aria-controls="w${i}"><span class="wk">Week ${i+1}</span><h3>${t}</h3><span class="pm" aria-hidden="true">+</span></button>
+  <div class="body" id="w${i}"><ul>${l.map(x=>`<li>${x}</li>`).join('')}</ul><span class="project">Project: ${p}</span></div></div>`).join('');
+wEl.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  const w=b.parentElement,o=w.dataset.open!=='true';
+  w.dataset.open=o;b.setAttribute('aria-expanded',o);
+});
+
+const out=document.getElementById('out');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('run').addEventListener('click',async()=>{
+  const name=(prompt("What's your name?")||'You').trim().slice(0,20)||'You';
+  out.textContent='';
+  const lines=[`What's your name? ${name}`,...Array.from({length:8},(_,i)=>`Week ${i+1}: ${name} is coding`),"Done. You're a programmer."];
+  for(const l of lines){
+    const d=document.createElement('div');d.textContent=l;out.appendChild(d);
+    if(!reduce) await new Promise(r=>setTimeout(r,140));
+  }
+  const c=document.createElement('span');c.className='cursor';out.appendChild(c);
+});
+
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const p=document.createElement('p');p.className='done';p.setAttribute('role','status');
+  p.textContent=`Thanks, ${f.get('name')}! Payment details are on their way to ${f.get('email')} within the hour.`;
+  e.target.replaceWith(p);
+});
+</script>
+</body>
+</html>
